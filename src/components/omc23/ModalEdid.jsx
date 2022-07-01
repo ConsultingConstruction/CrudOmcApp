@@ -1,12 +1,11 @@
-import React,{useState} from "react";
+import React,{useState,Fragment} from "react";
 import { useForm } from "react-hook-form";
-import { useOmc23 } from "../../context/omc23/ContextOmc23";
 import '../../styles/omc23/styles.css'
 
 
 export default function ModalEdid(props) {
   
-  const{response} = useOmc23()
+
   const {register,formState:{errors} ,handleSubmit,setValue} = useForm({
     defaultValues:props.current
   });
@@ -25,72 +24,82 @@ export default function ModalEdid(props) {
 
           if(e.target.regFinal){console.log(e.target.regFinal.checked)}
           props.updateRegistro(data)
+          props.setactive(false)
       }
-    
+
+  if (!props.active) return null
 
   return (
+    <Fragment>
+    <div className='overlay' >
+    <div className='modalContainer'>
+        <button className='closeBtn'  onClick={()=>props.setactive(false)}>X</button>
+        <div className='headerTittle'>Formulario Add</div>
+        
+
+        <div className='form' style={{marginTop:'40px'}}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+       <div className="row InputAdd">
+        <div className="form-group col-md-6">
+         <label htmlFor="inputEmail4">Código</label>
+         <input type="text" maxLength='9' className="form-control" id="inputEmail4" {...register("Codigo",{required:true,minLength:9})} placeholder="Código"/>
+         {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+         
+       </div>
+       <div className="form-group col-md-4">
+         <label htmlFor="inputPassword4">Año de Registro</label>
+         <input type="text" maxLength='4' className="form-control" id="inputPassword4" {...register("anioReg",{required:true,maxLength:4})} placeholder="Año de Registro"/>
+         {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+       </div>
+     </div>
+     <div className="row mt-2">
+     <div className="form-group col">
+       <input className="form-control" id="exampleFormControlTextarea1" maxLength='100' placeholder='Descripción en Inglés' {...register("descriEng",{required:true, maxLength:100})} rows="3"/>
+       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+     </div>
+     <div className="form-group col">
+       <input className="form-control" id="exampleFormControlTextarea1" maxLength='100' placeholder='Descripción en Español' rows="3" {...register("descriSpa",{required:true,maxLength:100})}/>
+       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+     </div>
+     </div>
+     <div className="row mt-2 InputAdd">
+     <div className="form-group col">
+       <textarea className="form-control" id="exampleFormControlTextarea1" maxLength='300' placeholder='Definición en Inglés' {...register("definicionEng",{required:true,maxLength:300})} rows="3"></textarea>
+       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+     </div>
+     <div className="form-group col">
+       <textarea className="form-control" id="exampleFormControlTextarea1" maxLength='470' placeholder='Definición en Español' {...register("definicionSpa",{required:true,maxLength:470})} rows="3"></textarea>
+       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+     </div>
+     </div>
+     <div className="row mt-2 InputAdd">
+     <div className="form-group col">
+       <textarea className="form-control" id="exampleFormControlTextarea1" maxLength='300' placeholder='Ejemplo en Inglés ' {...register("ejemploEng",{required:true,maxLength:300})} rows="3"></textarea>
+       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+     </div>
+     <div className="form-group col">
+       <textarea className="form-control" id="exampleFormControlTextarea1" maxLength='400' placeholder='Ejemplo en Español' {...register("ejemploSpa",{required:true,maxLength:400})} rows="3"></textarea>
+       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+     </div>
+     </div>
+     {props.numeroTabla>1? (
+       <div className="custom-control col-md-6 custom-checkbox">
+       <input type="checkbox"  className="custom-control-input m-2" {...register("regFinal")} id="customCheck1"/>
+       <label className="custom-control-label" htmlFor="customCheck1">Aplica como registro Final?</label>
+       </div>):(null)}
+     
+     <div >
+     <button type="submit" className="btn align-self-end  m-2  btn-primary mt-3">Agregar</button>
+     <button onClick={()=>props.setactive(false)} className="btn align-self-end  m-2 btn-secondary mt-3">Cancelar</button>
+     </div>
+   </form>
   
-  <div className="modal fade" id='modalEditar' tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+            </div>
+</div>
         
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header bg-dark">
-        <h5 className="modal-title text-light" id="exampleModalLabel">Formulario Editar</h5>
-        <button type="button" className="text-light bg-dark" data-bs-dismiss="modal" aria-label="Close">X</button>
-      </div>
-      <div className="modal-body">
-        
-
-<form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
-
-<div className="col-md-6">
-    <label  className="form-label" >Codigo</label>
-    <input type="text" placeholder='codigo..' {...register("Codigo",{required:true})} className="form-control"/>
-    {errors.name && <span className="text-danger text-small d-block mb-2">Este campo es requerido</span>}
-  </div>
-  <div className="col-md-6">
-    <label  className="form-label">Año de Registro</label>
-    <input type="number" className="form-control" {...register("anioReg",{required:true})}/>
-    {errors.name && <span className="text-danger text-small d-block mb-2">Este campo es requerido</span>}
-  </div>
-  <div className="form-floating">
-  <textarea className="edid-form" placeholder="Leave a comment here" {...register("definicionEng",{required:true})}></textarea>
-</div>
-<div className="form-floating">
-  <textarea className="edid-form" placeholder="Leave a comment here" {...register("definicionSpa",{required:true})}></textarea>
-</div>
-<div className="form-floating">
-  <textarea className="edid-form" placeholder="Leave a comment here" {...register("descriEng",{required:true})}></textarea>
-</div>
-<div className="form-floating">
-  <textarea className="edid-form" placeholder="Leave a comment here" {...register("descriSpa",{required:true})}></textarea>
-</div>
-<div className="form-floating">
-  <textarea className="edid-form" placeholder="Leave a comment here" {...register("ejemploEng",{required:true})}></textarea>
-</div>
-<div className="form-floating">
-  <textarea className="edid-form" placeholder="Leave a comment here" {...register("ejemploSpa",{required:true})}></textarea>
-</div>
-{ props.numeroTabla>=2?
-    (<div className="form-floating">
-    <input className="form-check-input" type="checkbox" id="flexCheckIndeterminate" {...register("regFinal")}/>
-    <label className="form-check-label" htmlFor="flexCheckIndeterminate">
-    Registro Final
-  </label>
-  </div>):null
- }
-<input type='submit' c value='modificar' className='btn btn-primary' data-bs-dismiss="modal" aria-label="Close"></input>
-
-</form>
-
-      </div>
-      {/* <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" className="btn btn-primary" form='AddForm' >Agregar</button>
-      </div> */}
-    </div>
-  </div>
-</div>
+        </div>
+        <div className='modal-backdrop fade show' style={{zIndex:50}}></div>
+        </Fragment>
       )
 }
 

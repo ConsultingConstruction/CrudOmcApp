@@ -2,9 +2,8 @@ import { Button } from 'bootstrap';
 import React, { useMemo,useState } from 'react'
 import { useTable,usePagination,useGlobalFilter,useSortBy } from 'react-table'
 import GlobalFilter from '../GlobalFilter';
-import ButtonAdd from '../ButtonAdd';
 import { useOmc23 } from '../../context/omc23/ContextOmc23';
-
+import '../../styles/omc23/styles.css'
 export default function Omcn1(props){
 
   const dataOmc1 = props.Omcn1
@@ -16,10 +15,17 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
 
    const columns = React.useMemo(
      () => [
-       {
-         Header: 'No',
-         accessor: 'idOmc23N1', // accessor is the "key" in the data
-       },
+      {
+        Header: "Index",
+        accessor: "",
+        Cell: (row) => {
+          return <div>{Number(row.row.id) + 1}</div>;
+        },
+        style:{
+          textAlign:'center'
+        }
+    },
+     
        {
          Header: 'Código',
          accessor: 'Codigo',
@@ -52,6 +58,7 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
         Header: 'Ejemplo en Español',
         accessor: 'ejemploSpa',
       },
+      
       {
         Header: 'Año de Registro',
         accessor: 'anioReg',
@@ -128,7 +135,7 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
            prepareRow(row)
      
            return (
-             <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>props.selectOpp(row.original.idOmc23N1) }>
+             <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>props.selectOpp(row.original.Codigo) }>
     
                {row.cells.map((cell,idx) => {
                  return (

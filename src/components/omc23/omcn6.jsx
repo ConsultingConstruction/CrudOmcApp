@@ -2,7 +2,6 @@ import React, { Fragment,useEffect,useState,useMemo } from 'react'
 import { useTable,usePagination,useGlobalFilter,useSortBy } from 'react-table'
 import GlobalFilter from '../GlobalFilter';
 import { useOmc23 } from '../../context/omc23/ContextOmc23';
-import ButtonAdd from '../ButtonAdd';
 export default function Omcn6(props){
 
   const{NivelForm,UpdateOmc23} = useOmc23()
@@ -12,9 +11,15 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
    const columns = React.useMemo(
      () => [
       {
-        Header: 'ID',
-        accessor: 'idOmc23N6', // accessor is the "key" in the data
-      },
+        Header: "Index",
+        accessor: "",
+        Cell: (row) => {
+          return <div>{Number(row.row.id) + 1}</div>;
+        },
+        style:{
+          textAlign:'center'
+        }
+    },,
       {
         Header: 'Codigo',
         accessor: 'Codigo',

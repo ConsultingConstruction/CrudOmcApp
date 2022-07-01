@@ -2,7 +2,6 @@ import { Button } from 'bootstrap';
 import React, { useMemo,useState,Fragment } from 'react'
 import { useTable,usePagination,useGlobalFilter,useSortBy } from 'react-table'
 import GlobalFilter from '../GlobalFilter';
-import ButtonAdd from '../ButtonAdd';
 import { useOmc23 } from '../../context/omc23/ContextOmc23';
 
 
@@ -16,9 +15,15 @@ export default function Omcn2(props){
    const columns = React.useMemo(
      () => [
       {
-        Header: 'ID',
-        accessor: 'idOmc23N2', // accessor is the "key" in the data
-      },
+        Header: "Index",
+        accessor: "",
+        Cell: (row) => {
+          return <div>{Number(row.row.id) + 1}</div>;
+        },
+        style:{
+          textAlign:'center'
+        }
+    },
 
       {
         Header: 'Código',
@@ -119,7 +124,7 @@ export default function Omcn2(props){
          {page.map(row => {
            prepareRow(row)
            return (
-            <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>props.selectOpp2(row.original.idOmc23N2) }>
+            <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>props.selectOpp2(row.original.Codigo) }>
               
                {row.cells.map(cell => {
                  return (

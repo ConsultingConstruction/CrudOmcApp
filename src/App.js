@@ -8,6 +8,7 @@ import { Omc23Provider } from "./context/omc23/ContextOmc23";
 import { Provider } from "react-redux";
 import store from './redux'
 import './styles/omc23/styles.css'
+import './styles/modalsStyle.css'
 function App() {
   return (
     <div className="" >
