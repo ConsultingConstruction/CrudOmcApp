@@ -9,7 +9,7 @@ export default function ModalEdid(props) {
   const {register,formState:{errors} ,handleSubmit,setValue} = useForm({
     defaultValues:props.current
   });
-    
+
   setValue('Codigo',props.current.Codigo)
   setValue('descriEng',props.current.descriEng)
   setValue('descriSpa',props.current.descriSpa)
@@ -18,7 +18,7 @@ export default function ModalEdid(props) {
   setValue('ejemploEng',props.current.ejemploEng)
   setValue('ejemploSpa',props.current.ejemploSpa)
   setValue('anioReg',props.current.anioReg)
-  if(props.numTabla > 1){setValue('regFinal',props.current.regFinal)}
+  setValue('regFinal',props.current.regFinal)
 
   const onSubmit = (data,e)=>{
 

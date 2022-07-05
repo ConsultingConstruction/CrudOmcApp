@@ -1,14 +1,11 @@
-import React, { Fragment } from 'react'
-import '../../styles/footerStyle.css'
+import React from 'react'
+import '../styles/footerStyle.css'
 
 const Footer = ()=> {
  
     return (
-        <Fragment>
         <footer className="text-center text-white mt-4" style={{backgroundColor:'rgba(20,20,20,0.8)'}}>
         <div className="p-4">
-
-
     <section className="">
       <form action="">
 
@@ -243,7 +240,7 @@ const Footer = ()=> {
     <a className="text-white" target="_blank" href="https://consulting.construction/">Consulting & Construction</a>
   </div>
  
-</footer></Fragment>
+</footer>
     );
     
 

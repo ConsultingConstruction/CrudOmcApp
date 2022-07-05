@@ -1,17 +1,18 @@
 import React, { Fragment,useState} from 'react'
-import Omcn1 from './omc23/omcn1'
-import Omcn2 from './omc23/omcn2'
-import Omcn3 from './omc23/omcn3'
-import Omcn4 from './omc23/omcn4'
-import Omcn5 from './omc23/omcn5'
-import Omcn6 from './omc23/omcn6';
-import Footer from './footer'
-import ModalEdid from './omc23/ModalEdid';
+import Omcn1 from '../components/omc23/omcn1'
+import Omcn2 from '../components/omc23/omcn2'
+import Omcn3 from '../components/omc23/omcn3'
+import Omcn4 from '../components/omc23/omcn4'
+import Omcn5 from '../components/omc23/omcn5'
+import Omcn6 from '../components/omc23/omcn6';
+import Footer from '../components/footer'
+import ModalEdid from '../components/omc23/ModalEdid'
 import {Toaster} from 'react-hot-toast'
-import { useOmc23 } from '../context/omc23/ContextOmc23';
-import Aside from './omc23/aside';
-import Modal2Add from './omc23/Modal2Add';
-export default function TablaReact() {
+import { useOmc23 } from '../context/omc23/ContextOmc23'
+import Aside from '../components/omc23/aside'
+import Modal2Add from '../components/omc23/Modal2Add'
+import ButtonExel from '../components/buttonExel'
+export default function PageOmc23() {
 
 
   const {UpdateOmc23Url,
@@ -153,12 +154,13 @@ export default function TablaReact() {
             }
           }}
         />
-
-
+        
+        <ButtonExel/>
         <div className='containerTitle'>
           <p className='textTitle'>Norma Omniclass 23: Productos</p>
           <hr className='hrTitle'/>
         </div>
+
         <Omcn1 Omcn1={omc23n1} selectOpp={selectOpp} edidrow={edidrow}/>
         {dataomcn2.length>0 ?(<Omcn2 dataomcn2={dataomcn2} selectOpp2={selectOpp2} edidrow={edidrow}/>):(null)}       
         {dataomcn3.length>0  ?(<Omcn3 dataomcn3={dataomcn3} selectOpp3={selectOpp3} edidrow={edidrow}/>):(null)}  

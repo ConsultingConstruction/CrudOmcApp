@@ -17,9 +17,9 @@ export default function Omcn2(props){
        }
       
     
-  const selectRow = (row)=>{
-      const selectRow = document.querySelectorAll('.trN2')
-      const selectRowTag = selectRow[row.id]
+  const selectRow = (e)=>{
+
+      const selectRowTag = e.nativeEvent.path[1]
       
       if(selectRowTag.classList.contains('row-selected')){
         
@@ -38,7 +38,7 @@ export default function Omcn2(props){
         Header: "No",
         accessor: "",
         Cell: (row) => {
-          return <div>{Number(row.row.id) + 1}</div>;
+          return (<div>{Number(row.row.id) + 1}</div>);
         },
         style:{
           textAlign:'center'
@@ -84,6 +84,14 @@ export default function Omcn2(props){
      {
       Header: 'Registro final',
       accessor: 'regFinal',
+      Cell:(row)=>{
+        if(row.row.original.regFinal===true){
+          return <div>Si</div>
+        }else{
+          return <div>No</div>
+        }
+        
+      },
     },
      ],
      []
@@ -148,7 +156,7 @@ export default function Omcn2(props){
          {page.map(row => {
            prepareRow(row)
            return (
-            <tr className='trN2' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>(selectRow(row),props.selectOpp2(row.original.Codigo))}>
+            <tr className='trN2' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={(e)=>(selectRow(e),props.selectOpp2(row.original.Codigo))}>
               
                {row.cells.map(cell => {
                  return (

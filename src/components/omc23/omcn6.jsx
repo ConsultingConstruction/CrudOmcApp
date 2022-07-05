@@ -13,10 +13,9 @@ export default function Omcn6(props){
        }
       
     
-  const selectRow = (row)=>{
-      const selectRow = document.querySelectorAll('.trN6')
-      const selectRowTag = selectRow[row.id]
-      
+  const selectRow = (e)=>{
+
+      const selectRowTag = e.nativeEvent.path[1]
       if(selectRowTag.classList.contains('row-selected')){
         
       }else{
@@ -79,6 +78,14 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
      {
       Header: 'Registro final',
       accessor: 'regFinal',
+      Cell:(row)=>{
+        if(row.row.original.regFinal===true){
+          return <div>Si</div>
+        }else{
+          return <div>No</div>
+        }
+        
+      },
     },
      ],
      []
@@ -143,7 +150,7 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
          {page.map(row => {
            prepareRow(row)
            return (
-             <tr {...row.getRowProps()} onClick={()=>selectRow()}>
+             <tr className='.trN6' {...row.getRowProps()} onClick={(e)=>selectRow(e)}>
                {row.cells.map(cell => {
                  return (
                    <td

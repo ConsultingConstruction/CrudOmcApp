@@ -1,7 +1,7 @@
 import { useTable,usePagination,useGlobalFilter,useSortBy } from 'react-table'
 import GlobalFilter from '../GlobalFilter'
 import { useForm } from "react-hook-form";
-import React, { Fragment,useMemo,useState} from 'react'
+import React, { Fragment,useMemo} from 'react'
 import { useOmc23 } from '../../context/omc23/ContextOmc23';
 
 function Modal2Add(props) {
@@ -9,7 +9,28 @@ function Modal2Add(props) {
   //react hook forms
     const {register,formState:{errors} ,handleSubmit,setValue,reset} = useForm();
     const {CreateOmc23Url} = useOmc23()
-     
+    
+  //ESTILOS CSS PARA SELECCIONAR FILA 
+        function cleanTr(){
+          document.querySelectorAll('.omc23Modal').forEach(function(index){
+          index.classList.remove('row-selected')
+          index.classList.remove('other-clic')
+          })
+         }
+        
+      
+    const selectRow = (e)=>{
+        
+        const selectRowTag = e.nativeEvent.path[1]
+        
+        if(selectRowTag.classList.contains('row-selected')){
+          
+        }else{
+          cleanTr()
+          selectRowTag.classList.add('row-selected')
+        }
+      
+      }
 
     //columnas de la tabla
     const columns = useMemo(
@@ -122,7 +143,7 @@ if (!props.active) return null
                     <tbody {...getTableBodyProps()}>
                         {page.map(row => {prepareRow(row)
                         return (
-                        <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>props.selectFk(row.original.Codigo) }>{row.cells.map(cell => {
+                        <tr className='omc23Modal' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={(e)=>(selectRow(e),props.selectFk(row.original.Codigo)) }>{row.cells.map(cell => {
                         return (
                             <td {...cell.getCellProps([{className: cell.column.className,style: cell.column.style,},])}> 
                             {cell.render('Cell')}

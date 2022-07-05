@@ -14,9 +14,8 @@ export default function Omcn3(props){
        }
       
     
-  const selectRow = (row)=>{
-      const selectRow = document.querySelectorAll('.trN3')
-      const selectRowTag = selectRow[row.id]
+  const selectRow = (e)=>{
+      const selectRowTag = e.nativeEvent.path[1]
       
       if(selectRowTag.classList.contains('row-selected')){
         
@@ -81,6 +80,14 @@ export default function Omcn3(props){
      {
       Header: 'Registro final',
       accessor: 'regFinal',
+      Cell:(row)=>{
+        if(row.row.original.regFinal===true){
+          return <div>Si</div>
+        }else{
+          return <div>No</div>
+        }
+        
+      },
     },
      ],
      []
@@ -145,7 +152,7 @@ export default function Omcn3(props){
          {page.map(row => {
            prepareRow(row)
            return (
-            <tr className='trN3' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>(selectRow(row),props.selectOpp3(row.original.Codigo)) }>
+            <tr className='trN3' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={(e)=>(selectRow(e),props.selectOpp3(row.original.Codigo)) }>
                {row.cells.map(cell => {
                  return (
                    <td

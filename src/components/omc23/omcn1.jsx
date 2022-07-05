@@ -19,10 +19,8 @@ export default function Omcn1(props){
      }
     
   
-  const selectRow = (row)=>{
-    const selectRow = document.querySelectorAll('.trN')
-    const selectRowTag = selectRow[row.id]
-    
+  const selectRow = (e)=>{
+    const selectRowTag = e.nativeEvent.path[1]
     if(selectRowTag.classList.contains('row-selected')){
       
     }else{
@@ -135,7 +133,7 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
        usePagination,tableHooks,)
 
        const{globalFilter} = state
-       
+       const val = 1
      return(
         <div className='containerTable'>
 
@@ -166,7 +164,7 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
            prepareRow(row)
      
            return (
-             <tr className='trN' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={(e)=>(selectRow(row),props.selectOpp(row.original.Codigo)) }>
+             <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={(e)=>(selectRow(e),props.selectOpp(row.original.Codigo)) } >
     
                {row.cells.map((cell,idx) => {
                  return (
