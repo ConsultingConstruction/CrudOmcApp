@@ -15,7 +15,7 @@ function Modal2Add(props) {
     const columns = useMemo(
         () => [
           {
-            Header: "Index",
+            Header: "No",
             accessor: "",
             Cell: (row) => {
               return <div>{Number(row.row.id) + 1}</div>;
@@ -103,11 +103,11 @@ if (!props.active) return null
         <div className='overlay' >
         <div className='modalContainer'>
             <button className='closeBtn'  onClick={()=>(props.setactive(false),props.setselect(null))}>X</button>
-            <div className='headerTittle'>Formulario Add</div>
+            <div className='headerTittle'>Registrar concepto para la norma Omniclass 23: Productos Nivel {props.numeroTabla}</div>
             {
               props.numeroTabla>1?(
                 <div className='tableContainer' style={{overflowX:'auto', overflowY:'auto', maxHeight:'450px'}}>
-                <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
+                <div className='mb-2 col-4'><GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/></div>
                 <table {...getTableProps()} style={{maxHeight:'100px'}} className='table table-hover mt-2 shadow-lg'>
                     <thead>
                         {headerGroups.map(headerGroup => (
@@ -131,7 +131,7 @@ if (!props.active) return null
                     </tbody>
                 </table>
                 <div style={{textAlign:'center'}}>
-         <button type="button" className="btn btn-light" onClick={()=>previousPage()}>Previous</button><button type="button" className="btn btn-light" onClick={()=>nextPage()}>Next</button>
+                <button type="button" className="btn btn-dark m-1" onClick={()=>previousPage()}>Previous</button><button type="button"  className="btn btn-dark" onClick={()=>nextPage()}>Next</button>
          <br/>
          <span>
               Page{' '}
@@ -152,45 +152,45 @@ if (!props.active) return null
         <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
        <div className="row InputAdd">
         <div className="form-group col-md-6">
-         <label htmlFor="inputEmail4">Código</label>
+ 
          <input type="text" maxLength='9' className="form-control" id="inputEmail4" {...register("Codigo",{required:true,minLength:9})} placeholder="Código"/>
          {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
          
        </div>
        <div className="form-group col-md-4">
-         <label htmlFor="inputPassword4">Año de Registro</label>
+      
          <input type="text" maxLength='4' className="form-control" id="inputPassword4" {...register("anioReg",{required:true,maxLength:4})} placeholder="Año de Registro"/>
-         {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+         {errors.anioReg && <span className="text-danger text-small d-block mb-2">No valido</span>}
        </div>
      </div>
      <div className="row mt-2">
      <div className="form-group col">
        <input className="form-control" id="exampleFormControlTextarea1" maxLength='100' placeholder='Descripción en Inglés' {...register("descriEng",{required:true, maxLength:100})} rows="3"/>
-       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+       {errors.descriEng && <span className="text-danger text-small d-block mb-2">No valido</span>}
      </div>
      <div className="form-group col">
        <input className="form-control" id="exampleFormControlTextarea1" maxLength='100' placeholder='Descripción en Español' rows="3" {...register("descriSpa",{required:true,maxLength:100})}/>
-       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+       {errors.descriSpa && <span className="text-danger text-small d-block mb-2">No valido</span>}
      </div>
      </div>
      <div className="row mt-2 InputAdd">
      <div className="form-group col">
        <textarea className="form-control" id="exampleFormControlTextarea1" maxLength='300' placeholder='Definición en Inglés' {...register("definicionEng",{required:true,maxLength:300})} rows="3"></textarea>
-       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+       {errors.definicionEng && <span className="text-danger text-small d-block mb-2">No valido</span>}
      </div>
      <div className="form-group col">
        <textarea className="form-control" id="exampleFormControlTextarea1" maxLength='470' placeholder='Definición en Español' {...register("definicionSpa",{required:true,maxLength:470})} rows="3"></textarea>
-       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+       {errors.definicionSpa && <span className="text-danger text-small d-block mb-2">No valido</span>}
      </div>
      </div>
      <div className="row mt-2 InputAdd">
      <div className="form-group col">
        <textarea className="form-control" id="exampleFormControlTextarea1" maxLength='300' placeholder='Ejemplo en Inglés ' {...register("ejemploEng",{required:true,maxLength:300})} rows="3"></textarea>
-       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+       {errors.ejemploEng && <span className="text-danger text-small d-block mb-2">No valido</span>}
      </div>
      <div className="form-group col">
        <textarea className="form-control" id="exampleFormControlTextarea1" maxLength='400' placeholder='Ejemplo en Español' {...register("ejemploSpa",{required:true,maxLength:400})} rows="3"></textarea>
-       {errors.Codigo && <span className="text-danger text-small d-block mb-2">No valido</span>}
+       {errors.ejemploSpa && <span className="text-danger text-small d-block mb-2">No valido</span>}
      </div>
      </div>
      {props.numeroTabla>1? (
@@ -199,9 +199,9 @@ if (!props.active) return null
        <label className="custom-control-label" htmlFor="customCheck1">Aplica como registro Final?</label>
        </div>):(null)}
      
-     <div >
-     <button type="submit" className="btn align-self-end  m-2  btn-primary mt-3">Agregar</button>
-     <button type="reset" className="btn align-self-end  m-2 btn-secondary mt-3">Cancelar</button>
+     <div className='d-flex align-items-end flex-column'>
+      <div><button type="submit" className="btn m-2  btn-primary mt-3">Guardar</button>
+     <button type="reset" className="btn m-2 btn-danger mt-3">Cancelar</button></div>
      </div>
    </form>
                </div>

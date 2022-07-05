@@ -1,18 +1,39 @@
-import React, { Fragment,useEffect,useState,useMemo } from 'react'
+import React, {useMemo } from 'react'
 import { useTable,usePagination,useGlobalFilter,useSortBy } from 'react-table'
 import GlobalFilter from '../GlobalFilter';
-import { useOmc23 } from '../../context/omc23/ContextOmc23';
 
-export default function Omcn4(props){
 
-  const{NivelForm,UpdateOmc23} = useOmc23()
+export default function Omcn4(props){ 
+
+    //ESTILOS CSS PARA SELECCIONAR FILA 
+    function cleanTr(){
+      document.querySelectorAll('.trN4').forEach(function(index){
+      index.classList.remove('row-selected')
+      index.classList.remove('other-clic')
+      })
+     }
+    
+  
+const selectRow = (row)=>{
+    const selectRow = document.querySelectorAll('.trN4')
+    const selectRowTag = selectRow[row.id]
+    
+    if(selectRowTag.classList.contains('row-selected')){
+      
+    }else{
+      cleanTr()
+      selectRowTag.classList.add('row-selected')
+    }
+  
+  }
+
 
 const data = useMemo(()=>props.dataomcn4,[props.dataomcn4])
 
    const columns = React.useMemo(
      () => [
       {
-        Header: "Index",
+        Header: "No",
         accessor: "",
         Cell: (row) => {
           return <div>{Number(row.row.id) + 1}</div>;
@@ -22,7 +43,7 @@ const data = useMemo(()=>props.dataomcn4,[props.dataomcn4])
         }
     },
       {
-        Header: 'Codigo',
+        Header: 'Código',
         accessor: 'Codigo',
         className:'Codigo',
          style: {
@@ -30,23 +51,23 @@ const data = useMemo(()=>props.dataomcn4,[props.dataomcn4])
         },
       },
       {
-       Header: 'Descripcion en Ingles',
+       Header: 'Descripción en Inglés',
        accessor: 'descriEng',
      },
      {
-       Header: 'Descripcion en Español',
+       Header: 'Descripción en Español',
        accessor: 'descriSpa',
      },
      {
-       Header: 'Definicion en Ingles',
+       Header: 'Definición en Inglés',
        accessor: 'definicionEng',
      },
      {
-       Header: 'Definicion en Español',
+       Header: 'Definición en Español',
        accessor: 'definicionSpa',
      },
      {
-       Header: 'Ejemplo en Ingles',
+       Header: 'Ejemplo en Inglós',
        accessor: 'ejemploEng',
      },
      {
@@ -71,7 +92,7 @@ const data = useMemo(()=>props.dataomcn4,[props.dataomcn4])
         id:'Edit',
         Header:'Editar',
         Cell:({row})=>(
-          <button type='button' className='btn btn-success' data-bs-toggle="modal" data-bs-target='#modalEditar' onClick={()=>props.edidrow(4,row.values)}> Edit</button>
+          <button type='button' style={{marginTop:'20%'}} className='btn btn-success' data-bs-toggle="modal" data-bs-target='#modalEditar' onClick={()=>props.edidrow(4,row.values)}> Editar</button>
               
           
         )
@@ -97,12 +118,14 @@ const data = useMemo(()=>props.dataomcn4,[props.dataomcn4])
        const{globalFilter} = state
 
      return(
-        <Fragment>
-          <div className='row'>
-          <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
+      <div className='containerTable mt-4'>
+          <div className='headerTable' >
+          <div className='col-md-7 col-sm-5' ><h2 className='mt-3 textTable'>OMC Nivel 4</h2></div>
+          <div className='col-md-5 col-sm-7'><GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/></div>
           </div>
         
-          <table {...getTableProps()} className='table  table-hover mt-1 shadow-lg'>
+          <div className='table-responsive shadow-lg' >
+          <table {...getTableProps()} className='table  table-hover mt-1'>
        <thead>
          {headerGroups.map(headerGroup => (
            <tr {...headerGroup.getHeaderGroupProps()} >
@@ -121,7 +144,7 @@ const data = useMemo(()=>props.dataomcn4,[props.dataomcn4])
          {page.map(row => {
            prepareRow(row)
            return (
-            <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>props.selectOpp4(row.original.Codigo) }>
+            <tr className='trN4' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>(selectRow(row),props.selectOpp4(row.original.Codigo)) }>
                {row.cells.map(cell => {
                  return (
                    <td
@@ -139,17 +162,18 @@ const data = useMemo(()=>props.dataomcn4,[props.dataomcn4])
          })}
        </tbody>
      </table>
-     <div style={{textAlign:'center'}}>
-        <button type="button" className="btn btn-light" onClick={()=>previousPage()}>Previous</button><button type="button" className="btn btn-light" onClick={()=>nextPage()}>Next</button>
-        <br/>
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
+     </div>
+     <div className='footerTable'>
+     <button type="button" className="btn btn-dark m-1" onClick={()=>previousPage()}>Previous</button><button type="button"  className="btn btn-dark" onClick={()=>nextPage()}>Next</button>
+     <br/>
+     <span><strong>
+          Página{' '}
+          
+            {pageIndex + 1} de {pageOptions.length}
           </strong>{' '}
         </span>
+    </div>
      </div>
-     </Fragment>
      );
 
 }

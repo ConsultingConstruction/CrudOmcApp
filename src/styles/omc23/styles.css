@@ -4,3 +4,55 @@
     width: 100%;
 }
 
+
+.textTitle{
+ font-family: 'Source Sans Pro', sans-serif;
+ font-size: 40px;
+ font-weight: 700;
+ 
+}
+
+.containerTable{
+    background-color: #fff;
+    box-shadow: 0px 1px 20px #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    font-family: 'Source Sans Pro', sans-serif;
+    position: relative;
+    padding-top: 100px;
+   
+}
+.headerTable{
+    background-color: #fff;
+    display: flex;
+    border-bottom: 2px solid #ccc;
+    background-color: #999 ;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px 5px 0px 0px;
+    width: 100%;
+    padding:0px 6px 0px 6px;
+    
+}
+
+.textTable{
+    color:#fff;
+    font-weight: 500;
+}
+
+.footerTable{
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.row-selected{
+    background-color: #aaa;
+    color: #fff;
+    transition: all 0.4s;
+  }
+  
+  
+
+  

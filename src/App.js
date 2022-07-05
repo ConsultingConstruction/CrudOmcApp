@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="" >
       <Provider store={store}>
-        <Omc23Provider>
+      <Omc23Provider>
       <BrowserRouter>
         <Navbar/>
         <Routes>

@@ -8,6 +8,32 @@ export default function Omcn1(props){
 
   const dataOmc1 = props.Omcn1
   const{NivelForm} = useOmc23()
+      
+  
+    //ESTILOS CSS PARA SELECCIONAR FILA 
+    function cleanTr(){
+      document.querySelectorAll('.row-selected').forEach(function(index){
+      index.classList.remove('row-selected')
+      index.classList.remove('other-clic')
+      })
+     }
+    
+  
+  const selectRow = (row)=>{
+    const selectRow = document.querySelectorAll('.trN')
+    const selectRowTag = selectRow[row.id]
+    
+    if(selectRowTag.classList.contains('row-selected')){
+      
+    }else{
+      cleanTr()
+      selectRowTag.classList.add('row-selected')
+    }
+  
+  }
+     
+      
+
   
   
 
@@ -16,7 +42,7 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
    const columns = React.useMemo(
      () => [
       {
-        Header: "Index",
+        Header: "No",
         accessor: "",
         Cell: (row) => {
           return <div>{Number(row.row.id) + 1}</div>;
@@ -43,11 +69,11 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
         accessor: 'descriSpa',
       },
       {
-        Header: 'Definicion en Inglés',
+        Header: 'Definición en Inglés',
         accessor: 'definicionEng',
       },
       {
-        Header: 'Definicion en Español',
+        Header: 'Definición en Español',
         accessor: 'definicionSpa',
       },
       {
@@ -80,13 +106,15 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
           id:'Edit',
           Header:'Editar',
           Cell:({row})=>(
-               <button type='button' className='btn btn-success' data-bs-toggle="modal" data-bs-target='#modalEditar' onClick={()=>props.edidrow(1,row.values)}> Edit</button>
+               <button type='button' className='btn btn-success' style={{marginTop:'20%'}} data-bs-toggle="modal" data-bs-target='#modalEditar' onClick={()=>props.edidrow(1,row.values)}> Editar</button>
                 
             
           )
         }
       ])
      }
+
+
      
     
 
@@ -109,17 +137,20 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
        const{globalFilter} = state
        
      return(
-        <>
+        <div className='containerTable'>
 
-        <div className='row justify-content-end'>
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
-        </div>
-        <table {...getTableProps()}  className='table table-hover mt-1 shadow-lg '>
+        <div className='headerTable' >
+          <div className='col-md-7 col-sm-5' ><h2 className='mt-3 textTable'>OMC Nivel 1</h2></div>
+          <div className='col-md-5 col-sm-7'><GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/></div>
+          </div>
+          
+        <div className='table-responsive shadow-lg' >
+        <table {...getTableProps()}  className='table table-hover mt-1' >
        <thead>
          {headerGroups.map(headerGroup => (
-           <tr {...headerGroup.getHeaderGroupProps()} >
+           <tr {...headerGroup.getHeaderGroupProps()}  >
              {headerGroup.headers.map(column => (
-               <th
+               <th style={{color:'black'}}
                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 
                >
@@ -135,7 +166,7 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
            prepareRow(row)
      
            return (
-             <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>props.selectOpp(row.original.Codigo) }>
+             <tr className='trN' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={(e)=>(selectRow(row),props.selectOpp(row.original.Codigo)) }>
     
                {row.cells.map((cell,idx) => {
                  return (
@@ -151,17 +182,18 @@ const data = useMemo(()=>[...props.Omcn1],[props.Omcn1])
          })}
        </tbody>
      </table>
-     <div style={{textAlign:'center'}}>
-     <button type="button" className="btn btn-light" onClick={()=>previousPage()}>Previous</button><button type="button"  className="btn btn-light" onClick={()=>nextPage()}>Next</button>
+     </div>
+     <div className='footerTable'>
+     <button type="button" className="btn btn-dark m-1" onClick={()=>previousPage()}>Previous</button><button type="button"  className="btn btn-dark" onClick={()=>nextPage()}>Next</button>
      <br/>
-     <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
+     <span><strong>
+          Página{' '}
+          
+            {pageIndex + 1} de {pageOptions.length}
           </strong>{' '}
         </span>
     </div>
-    </>
+    </div>
      );
 
 }

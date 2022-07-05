@@ -7,7 +7,7 @@ function Navbar() {
   }
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-black bg-black mb-5' style={{position:'fixed', width:'100%', top:'0%'}}>
+    <nav className='navbar navbar-expand-lg navbar-black bg-black mb-5' style={{position:'fixed', width:'100%', top:'0%',zIndex:'1000'}}>
         <div className='container-fluid'>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

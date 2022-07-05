@@ -1,12 +1,31 @@
-import React, { Fragment,useEffect,useState,useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { useTable,usePagination,useGlobalFilter,useSortBy } from 'react-table'
 import GlobalFilter from '../GlobalFilter';
-import { useOmc23 } from '../../context/omc23/ContextOmc23';
+
 
 export default function Omcn3(props){
   
-  const{NivelForm,UpdateOmc23} = useOmc23()
-
+  //ESTILOS CSS PARA SELECCIONAR FILA 
+      function cleanTr(){
+        document.querySelectorAll('.trN3').forEach(function(index){
+        index.classList.remove('row-selected')
+        index.classList.remove('other-clic')
+        })
+       }
+      
+    
+  const selectRow = (row)=>{
+      const selectRow = document.querySelectorAll('.trN3')
+      const selectRowTag = selectRow[row.id]
+      
+      if(selectRowTag.classList.contains('row-selected')){
+        
+      }else{
+        cleanTr()
+        selectRowTag.classList.add('row-selected')
+      }
+    
+    }
 
   const data = useMemo(()=>props.dataomcn3,[props.dataomcn3])
 
@@ -14,7 +33,7 @@ export default function Omcn3(props){
    const columns = React.useMemo(
      () => [
       {
-        Header: "Index",
+        Header: "No",
         accessor: "",
         Cell: (row) => {
           return <div>{Number(row.row.id) + 1}</div>;
@@ -24,7 +43,7 @@ export default function Omcn3(props){
         }
     },
       {
-        Header: 'Codigo',
+        Header: 'Código',
         accessor: 'Codigo',
         className:'Codigo',
          style: {
@@ -32,23 +51,23 @@ export default function Omcn3(props){
         },
       },
       {
-       Header: 'Descripcion en Ingles',
+       Header: 'Descripción en Inglés',
        accessor: 'descriEng',
      },
      {
-       Header: 'Descripcion en Español',
+       Header: 'Descripción en Español',
        accessor: 'descriSpa',
      },
      {
-       Header: 'Definicion en Ingles',
+       Header: 'Definición en Inglés',
        accessor: 'definicionEng',
      },
      {
-       Header: 'Definicion en Español',
+       Header: 'Definición en Español',
        accessor: 'definicionSpa',
      },
      {
-       Header: 'Ejemplo en Ingles',
+       Header: 'Ejemplo en Inglés',
        accessor: 'ejemploEng',
      },
      {
@@ -73,7 +92,7 @@ export default function Omcn3(props){
         id:'Edit',
         Header:'Editar',
         Cell:({row})=>(
-          <button type='button' className='btn btn-success' data-bs-toggle="modal" data-bs-target='#modalEditar' onClick={()=>props.edidrow(3,row.values)}> Edit</button>
+          <button type='button' style={{marginTop:'20%'}} className='btn btn-success' data-bs-toggle="modal" data-bs-target='#modalEditar' onClick={()=>props.edidrow(3,row.values)}> Editar</button>
               
           
         )
@@ -101,9 +120,13 @@ export default function Omcn3(props){
        const{globalFilter} = state
 
      return(
-        <Fragment>
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
-        <table {...getTableProps()} className='table  table-hover mt-1 shadow-lg'>
+      <div className='containerTable mt-4'>
+          <div className='headerTable' >
+          <div className='col-md-7 col-sm-5' ><h2 className='mt-3 textTable'>OMC Nivel 3</h2></div>
+          <div className='col-md-5 col-sm-7'><GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/></div>
+          </div>
+          <div className='table-responsive shadow-lg' >
+        <table {...getTableProps()} className='table  table-hover mt-1'>
        <thead>
          {headerGroups.map(headerGroup => (
            <tr {...headerGroup.getHeaderGroupProps()}>
@@ -122,7 +145,7 @@ export default function Omcn3(props){
          {page.map(row => {
            prepareRow(row)
            return (
-            <tr style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>props.selectOpp3(row.original.Codigo) }>
+            <tr className='trN3' style={{fontSize:'12px', fontFamily:'arial'}} {...row.getRowProps()} onClick={()=>(selectRow(row),props.selectOpp3(row.original.Codigo)) }>
                {row.cells.map(cell => {
                  return (
                    <td
@@ -140,17 +163,18 @@ export default function Omcn3(props){
          })}
        </tbody>
      </table>
-     <div style={{textAlign:'center'}}>
-        <button type="button" className="btn btn-light" onClick={()=>previousPage()}>Previous</button><button type="button" className="btn btn-light" onClick={()=>nextPage()}>Next</button>
-        <br/>
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
+     </div>
+     <div className='footerTable'>
+     <button type="button" className="btn btn-dark m-1" onClick={()=>previousPage()}>Previous</button><button type="button"  className="btn btn-dark" onClick={()=>nextPage()}>Next</button>
+     <br/>
+     <span><strong>
+          Página{' '}
+          
+            {pageIndex + 1} de {pageOptions.length}
           </strong>{' '}
         </span>
+    </div>
      </div>
-     </Fragment>
      );
 
 }

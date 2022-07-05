@@ -47,6 +47,8 @@ export function Omc23Provider(props) {
           setdataomcn3([])
           setdataomcn4([])
           setdataomcn5([])
+  
+
         }
     
       const selectOpp2 = (data)=> {
@@ -244,8 +246,8 @@ const CreateOmc23Url = async(Data,idtabla,Codigo)=>{
                 }).then((response)=>{
                   console.log(response)
                   fetchData()
-                  selectOpp()
                   if(response.request.status===200){return (toast.success('El registro se ha actualizado'))}
+                  selectOpp()
                   setresponse(response.request.status)
                 })
           break;
@@ -263,9 +265,9 @@ const CreateOmc23Url = async(Data,idtabla,Codigo)=>{
                 fk_Omc23N1:fk,
                 }).then((response)=>{
                   fetchData()
-                  selectOpp(selectcodigo1)
                   console.log(selectcodigo1)
                   if(response.request.status===200){return (toast.success('El registro se ha actualizado'))}
+                  selectOpp(selectcodigo1)
                   setresponse(response.request.status)})
                   
           break;
@@ -282,9 +284,9 @@ const CreateOmc23Url = async(Data,idtabla,Codigo)=>{
                 regFinal:Data.regFinal,
                 fk_Omc23N2:fk,
                 }).then((response)=>{
-                  fetchData()
-                  selectOpp2(selectcodigo2)
+                  fetchData()                 
                   if(response.request.status===200){return (toast.success('El registro se ha actualizado'))}
+                  selectOpp2(selectcodigo2)
                   setresponse(response.request.status)})
           break;
           case 4:
@@ -300,9 +302,9 @@ const CreateOmc23Url = async(Data,idtabla,Codigo)=>{
                 regFinal:Data.regFinal,
                 fk_Omc23N3:fk,
                 }).then((response)=>{
-                  fetchData()
-                  selectOpp2(selectcodigo3)
+                  fetchData()                  
                   if(response.request.status===200){return (toast.success('El registro se ha actualizado'))}
+                  selectOpp2(selectcodigo3)
                   setresponse(response.request.status)})
           break;
           case 5:
@@ -318,9 +320,9 @@ const CreateOmc23Url = async(Data,idtabla,Codigo)=>{
                 regFinal:Data.regFinal,
                 fk_Omc23N4:fk,
                 }).then((response)=>{
-                  fetchData()
-                  selectOpp2(selectcodigo4)
+                  fetchData()                 
                   if(response.request.status===200){return (toast.success('El registro se ha actualizado'))}
+                  selectOpp2(selectcodigo4)
                   setresponse(response.request.status)})
 
           break;
@@ -337,9 +339,9 @@ const CreateOmc23Url = async(Data,idtabla,Codigo)=>{
                 regFinal:Data.regFinal,
                 fk_Omc23N5:fk,
                 }).then((response)=>{
-                  fetchData()
-                  selectOpp2(selectcodigo5)
+                  fetchData()                 
                   if(response.request.status===200){return (toast.success('El registro se ha actualizado'))}
+                  selectOpp2(selectcodigo5)
                   setresponse(response.request.status)})
           break;
 

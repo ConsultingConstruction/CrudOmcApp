@@ -1,17 +1,37 @@
-import React, { Fragment,useEffect,useState,useMemo } from 'react'
+import React, {useMemo } from 'react'
 import { useTable,usePagination,useGlobalFilter,useSortBy } from 'react-table'
 import GlobalFilter from '../GlobalFilter';
-import { useOmc23 } from '../../context/omc23/ContextOmc23';
+
 export default function Omcn6(props){
 
-  const{NivelForm,UpdateOmc23} = useOmc23()
+      //ESTILOS CSS PARA SELECCIONAR FILA 
+      function cleanTr(){
+        document.querySelectorAll('.trN6').forEach(function(index){
+        index.classList.remove('row-selected')
+        index.classList.remove('other-clic')
+        })
+       }
+      
+    
+  const selectRow = (row)=>{
+      const selectRow = document.querySelectorAll('.trN6')
+      const selectRowTag = selectRow[row.id]
+      
+      if(selectRowTag.classList.contains('row-selected')){
+        
+      }else{
+        cleanTr()
+        selectRowTag.classList.add('row-selected')
+      }
+    
+    }
 
 const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
 
    const columns = React.useMemo(
      () => [
       {
-        Header: "Index",
+        Header: "No",
         accessor: "",
         Cell: (row) => {
           return <div>{Number(row.row.id) + 1}</div>;
@@ -21,7 +41,7 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
         }
     },,
       {
-        Header: 'Codigo',
+        Header: 'Código',
         accessor: 'Codigo',
         className:'Codigo',
          style: {
@@ -29,23 +49,23 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
         },
       },
       {
-       Header: 'Descripcion en Ingles',
+       Header: 'Descripción en Inglés',
        accessor: 'descriEng',
      },
      {
-       Header: 'Descripcion en Español',
+       Header: 'Descripción en Español',
        accessor: 'descriSpa',
      },
      {
-       Header: 'Definicion en Ingles',
+       Header: 'Definición en Inglés',
        accessor: 'definicionEng',
      },
      {
-       Header: 'Definicion en Español',
+       Header: 'Definición en Español',
        accessor: 'definicionSpa',
      },
      {
-       Header: 'Ejemplo en Ingles',
+       Header: 'Ejemplo en Inglés',
        accessor: 'ejemploEng',
      },
      {
@@ -71,7 +91,7 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
         id:'Edit',
         Header:'Editar',
         Cell:({row})=>(
-          <button type='button' className='btn btn-success' data-bs-toggle="modal" data-bs-target='#modalEditar' onClick={()=>props.edidrow(6,row.values)}> Edit</button>
+          <button type='button' className='btn btn-success' style={{marginTop:'20%'}} data-bs-toggle="modal" data-bs-target='#modalEditar' onClick={()=>props.edidrow(6,row.values)}> Editar</button>
               
           
         )
@@ -99,9 +119,12 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
        const{globalFilter} = state
 
      return(
-        <Fragment>
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
-        <table {...getTableProps()} className='table  table-hover mt-1 shadow-lg '>
+      <div className='containerTable mt-4'>
+        <div className='headerTable' >
+          <div className='col-md-7 col-sm-5' ><h2 className='mt-3 textTable'>OMC Nivel 1</h2></div>
+          <div className='col-md-5 col-sm-7'><GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/></div>
+          </div>
+        <table {...getTableProps()} className='table  table-hover mt-1'>
        <thead>
          {headerGroups.map(headerGroup => (
            <tr {...headerGroup.getHeaderGroupProps()}>
@@ -120,7 +143,7 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
          {page.map(row => {
            prepareRow(row)
            return (
-             <tr {...row.getRowProps()}>
+             <tr {...row.getRowProps()} onClick={()=>selectRow()}>
                {row.cells.map(cell => {
                  return (
                    <td
@@ -138,17 +161,19 @@ const data = useMemo(()=>props.dataomcn6,[props.dataomcn6])
          })}
        </tbody>
      </table>
-     <div style={{textAlign:'center'}}>
-        <button type="button" className="btn btn-light" onClick={()=>previousPage()}>Previous</button><button type="button" className="btn btn-light" onClick={()=>nextPage()}>Next</button>
-        <br/>
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
+     <div>
+      </div>
+      <div className='footerTable'>
+     <button type="button" className="btn btn-dark m-1" onClick={()=>previousPage()}>Previous</button><button type="button"  className="btn btn-dark" onClick={()=>nextPage()}>Next</button>
+     <br/>
+     <span><strong>
+          Página{' '}
+          
+            {pageIndex + 1} de {pageOptions.length}
           </strong>{' '}
         </span>
+    </div>
      </div>
-     </Fragment>
      );
 
 }

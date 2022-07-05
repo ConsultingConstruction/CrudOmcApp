@@ -47,7 +47,7 @@ export default function TablaReact() {
     ejemploSpa:''
    })
 
-   console.log(select)
+
 //Funcion para seleccionar fk
   const selectFk = (codigo)=>{
     const Codigo = dataFormAdd.filter(fk=> fk.Codigo === codigo)
@@ -136,6 +136,8 @@ export default function TablaReact() {
   }
 
 
+
+
    return (
      <Fragment>
       
@@ -150,6 +152,12 @@ export default function TablaReact() {
             }
           }}
         />
+
+
+        <div className='containerTitle'>
+          <p className='textTitle'>Norma Omniclass 23: Productos</p>
+          <hr className='hrTitle'/>
+        </div>
         <Omcn1 Omcn1={omc23n1} selectOpp={selectOpp} edidrow={edidrow}/>
         {dataomcn2.length>0 ?(<Omcn2 dataomcn2={dataomcn2} selectOpp2={selectOpp2} edidrow={edidrow}/>):(null)}       
         {dataomcn3.length>0  ?(<Omcn3 dataomcn3={dataomcn3} selectOpp3={selectOpp3} edidrow={edidrow}/>):(null)}  
